@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/bottom_sheet_drag_handle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/hidden_notes_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hidden_notes"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:layout_below="@id/bottom_sheet_drag_handle_view"
+        android:textAlignment="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/hidden_notes_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/hidden_notes_title"/>
+
+    <TextView
+        android:id="@+id/no_hidden_notes_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_hidden_notes"
+        android:gravity="center"
+        android:textAppearance="?attr/textAppearanceTitleLarge"/>
+
+</RelativeLayout>
