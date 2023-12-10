@@ -157,6 +157,7 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
                     withContext(Dispatchers.Main) {
                         collectionsAdapter.notifyDataSetChanged()
                         //toggleVisibility(collectionsAdapter.itemCount)
+
                     }
                 }
             }
