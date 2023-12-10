@@ -15,15 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:text="Collection name"/>
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
 
         <TextView
-            android:id="@+id/description_text_view"
+            android:id="@+id/content_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:text="A description about the collection, e.g. its purpose."/>
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
