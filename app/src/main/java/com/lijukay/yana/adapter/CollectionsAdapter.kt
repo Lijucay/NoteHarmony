@@ -3,27 +3,44 @@ package com.lijukay.yana.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lijukay.yana.databinding.CollectionItemViewBinding
-import com.lijukay.yana.items.Collection
+import com.lijukay.yana.databases.Collection
+import com.lijukay.yana.databinding.ItemViewBinding
+import com.lijukay.yana.interfaces.OnClickInterface
 
+/**
+ * This class represents an adapter for the collection recyclerview
+ * @param collectionsList A mutable list of the collection item
+ * @param onClickListener An interface to handle onClicks
+ * @see OnClickInterface
+ * @see Collection
+ */
 class CollectionsAdapter(
-    private var collectionsList: MutableList<Collection> = mutableListOf()
+    private var collectionsList: MutableList<Collection> = mutableListOf(),
+    private val onClickListener: OnClickInterface?
 ): RecyclerView.Adapter<CollectionsAdapter.CollectionsListViewHolder>() {
 
-    inner class CollectionsListViewHolder(val binding: CollectionItemViewBinding): RecyclerView.ViewHolder(binding.root)
+    inner class CollectionsListViewHolder(val binding: ItemViewBinding): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onClickListener?.onClick(adapterPosition)
+                }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionsListViewHolder {
-        val binding = CollectionItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CollectionsListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CollectionsListViewHolder, position: Int) {
         val currentCollectionItem = collectionsList[position]
-        val collectionTitle = currentCollectionItem.getCollectionTitle()
-        val collectionDescription = currentCollectionItem.getCollectionDescription()
+        val collectionTitle = currentCollectionItem.collectionName
+        val collectionDescription = currentCollectionItem.collectionDescription
 
         val titleTextView = holder.binding.titleTextView
-        val descriptionTextView = holder.binding.descriptionTextView
+        val descriptionTextView = holder.binding.contentTextView
 
         titleTextView.text = collectionTitle
         descriptionTextView.text = collectionDescription
@@ -31,5 +48,9 @@ class CollectionsAdapter(
 
     override fun getItemCount(): Int {
         return collectionsList.size
+    }
+
+    fun addCollection(collection: Collection) {
+        collectionsList.add(collection)
     }
 }
