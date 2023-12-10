@@ -1,4 +1,4 @@
-package com.lijukay.yana.dialogs
+package com.lijukay.noteharmony.dialogs
 
 import android.content.Context
 import android.os.Bundle
@@ -8,12 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.lijukay.yana.R
-import com.lijukay.yana.activity.NotesActivity
-import com.lijukay.yana.adapter.NotesAdapter
-import com.lijukay.yana.databases.Note
-import com.lijukay.yana.databases.YANADatabase
-import com.lijukay.yana.databinding.DialogCreateBinding
+import com.lijukay.noteharmony.R
+import com.lijukay.noteharmony.activity.NotesActivity
+import com.lijukay.noteharmony.adapter.NotesAdapter
+import com.lijukay.noteharmony.databases.Note
+import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
+import com.lijukay.noteharmony.databinding.DialogCreateBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,13 +59,13 @@ class CreateNoteDialog(
             val noteListSize = notesAdapter.itemCount
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val yanaDatabase = Room.databaseBuilder(
+                val noteHarmonyDatabase = Room.databaseBuilder(
                     context = context.applicationContext,
-                    klass = YANADatabase::class.java,
-                    name = "yana_database"
+                    klass = NoteHarmonyDatabase::class.java,
+                    name = "note_harmony_database"
                 ).build()
 
-                val noteDao = yanaDatabase.noteDao()
+                val noteDao = noteHarmonyDatabase.noteDao()
                 val result = noteDao.insertNote(note)
 
                 if (result != -1L) {

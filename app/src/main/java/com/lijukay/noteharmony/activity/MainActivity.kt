@@ -1,4 +1,4 @@
-package com.lijukay.yana.activity
+package com.lijukay.noteharmony.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -15,15 +15,15 @@ import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.lijukay.yana.R
-import com.lijukay.yana.adapter.CollectionsAdapter
-import com.lijukay.yana.adapter.NotesAdapter
-import com.lijukay.yana.databinding.ActivityMainBinding
-import com.lijukay.yana.databinding.DialogHiddenNotesBinding
-import com.lijukay.yana.databases.Collection
-import com.lijukay.yana.databases.YANADatabase
-import com.lijukay.yana.dialogs.CreateCollectionDialog
-import com.lijukay.yana.interfaces.OnClickInterface
+import com.lijukay.noteharmony.R
+import com.lijukay.noteharmony.adapter.CollectionsAdapter
+import com.lijukay.noteharmony.adapter.NotesAdapter
+import com.lijukay.noteharmony.databinding.ActivityMainBinding
+import com.lijukay.noteharmony.databinding.DialogHiddenNotesBinding
+import com.lijukay.noteharmony.databases.Collection
+import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
+import com.lijukay.noteharmony.dialogs.CreateCollectionDialog
+import com.lijukay.noteharmony.interfaces.OnClickInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,12 +62,12 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
         setSupportActionBar(materialToolbar)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val yanaDatabase = Room.databaseBuilder(
+            val noteHarmonyDatabase = Room.databaseBuilder(
                 context = applicationContext,
-                klass = YANADatabase::class.java,
-                name = "yana_database"
+                klass = NoteHarmonyDatabase::class.java,
+                name = "note_harmony_database"
             ).build()
-            val collectionDao = yanaDatabase.collectionDao()
+            val collectionDao = noteHarmonyDatabase.collectionDao()
             collections = collectionDao.getAllCollections()
             collectionsAdapter = CollectionsAdapter(collections, this@MainActivity)
 
@@ -97,12 +97,12 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
         val hiddenNotesRecyclerView = dialogBinding.hiddenNotesRecyclerView
 
         lifecycleScope.launch(context = Dispatchers.IO) {
-            val yanaDatabase = Room.databaseBuilder(
+            val noteHarmonyDatabase = Room.databaseBuilder(
                 context = applicationContext,
-                klass = YANADatabase::class.java,
-                name = "yana_database"
+                klass = NoteHarmonyDatabase::class.java,
+                name = "note_harmony_database"
             ).build()
-            val noteDao = yanaDatabase.noteDao()
+            val noteDao = noteHarmonyDatabase.noteDao()
             val hiddenNotes = noteDao.getHiddenNotes()
 
             withContext(context = Dispatchers.Main) {
@@ -146,12 +146,12 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
             .setPositiveButton(android.R.string.ok) { dialog, _ ->
                 dialog.dismiss()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val yanaDatabase = Room.databaseBuilder(
+                    val noteHarmonyDatabase = Room.databaseBuilder(
                         context = applicationContext,
-                        klass = YANADatabase::class.java,
-                        name = "yana_database"
+                        klass = NoteHarmonyDatabase::class.java,
+                        name = "note_harmony_database"
                     ).build()
-                    val collectionDao = yanaDatabase.collectionDao()
+                    val collectionDao = noteHarmonyDatabase.collectionDao()
                     collectionDao.deleteAll()
                     collections.clear()
                     withContext(Dispatchers.Main) {

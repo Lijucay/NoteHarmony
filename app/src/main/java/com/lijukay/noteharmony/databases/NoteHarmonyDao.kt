@@ -1,4 +1,4 @@
-package com.lijukay.yana.databases
+package com.lijukay.noteharmony.databases
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.lijukay.yana"
+    namespace = "com.lijukay.noteharmony"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.lijukay.yana"
+        applicationId = "com.lijukay.noteharmony"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.lijukay.yana.activity
+package com.lijukay.noteharmony.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,14 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.lijukay.yana.R
-import com.lijukay.yana.adapter.NotesAdapter
-import com.lijukay.yana.databases.Note
-import com.lijukay.yana.databases.NoteDao
-import com.lijukay.yana.databases.YANADatabase
-import com.lijukay.yana.databinding.ActivityNotesBinding
-import com.lijukay.yana.dialogs.CreateNoteDialog
-import com.lijukay.yana.interfaces.OnClickInterface
+import com.lijukay.noteharmony.R
+import com.lijukay.noteharmony.adapter.NotesAdapter
+import com.lijukay.noteharmony.databases.Note
+import com.lijukay.noteharmony.databases.NoteDao
+import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
+import com.lijukay.noteharmony.databinding.ActivityNotesBinding
+import com.lijukay.noteharmony.dialogs.CreateNoteDialog
+import com.lijukay.noteharmony.interfaces.OnClickInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,12 +62,12 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
         setSupportActionBar(materialToolbar)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val yanaDatabase = Room.databaseBuilder(
+            val noteHarmonyDatabase = Room.databaseBuilder(
                 context = applicationContext,
-                klass = YANADatabase::class.java,
-                name = "yana_database"
+                klass = NoteHarmonyDatabase::class.java,
+                name = "note_harmony_database"
             ).build()
-            noteDao = yanaDatabase.noteDao()
+            noteDao = noteHarmonyDatabase.noteDao()
             notes = noteDao.getNotes(collectionName)
             notesAdapter = NotesAdapter(notes)
 
@@ -85,12 +85,12 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
             .setPositiveButton(android.R.string.ok) { dialog, _ ->
                 dialog.dismiss()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val yanaDatabase = Room.databaseBuilder(
+                    val noteHarmonyDatabase = Room.databaseBuilder(
                         context = applicationContext,
-                        klass = YANADatabase::class.java,
-                        name = "yana_database"
+                        klass = NoteHarmonyDatabase::class.java,
+                        name = "note_harmony_database"
                     ).build()
-                    val noteDao = yanaDatabase.noteDao()
+                    val noteDao = noteHarmonyDatabase.noteDao()
                     noteDao.deleteAll()
                     notes.clear()
                     withContext(Dispatchers.Main) {

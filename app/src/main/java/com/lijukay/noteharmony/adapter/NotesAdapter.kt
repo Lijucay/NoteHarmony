@@ -1,10 +1,10 @@
-package com.lijukay.yana.adapter
+package com.lijukay.noteharmony.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lijukay.yana.databases.Note
-import com.lijukay.yana.databinding.ItemViewBinding
+import com.lijukay.noteharmony.databases.Note
+import com.lijukay.noteharmony.databinding.ItemViewBinding
 
 class NotesAdapter(
     private var notesList: MutableList<Note> = mutableListOf()

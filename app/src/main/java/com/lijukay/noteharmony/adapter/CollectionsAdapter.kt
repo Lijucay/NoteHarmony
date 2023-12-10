@@ -1,11 +1,11 @@
-package com.lijukay.yana.adapter
+package com.lijukay.noteharmony.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lijukay.yana.databases.Collection
-import com.lijukay.yana.databinding.ItemViewBinding
-import com.lijukay.yana.interfaces.OnClickInterface
+import com.lijukay.noteharmony.databases.Collection
+import com.lijukay.noteharmony.databinding.ItemViewBinding
+import com.lijukay.noteharmony.interfaces.OnClickInterface
 
 /**
  * This class represents an adapter for the collection recyclerview

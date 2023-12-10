@@ -1,4 +1,4 @@
-package com.lijukay.yana.databases
+package com.lijukay.noteharmony.databases
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

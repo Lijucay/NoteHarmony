@@ -1,4 +1,4 @@
-package com.lijukay.yana.dialogs
+package com.lijukay.noteharmony.dialogs
 
 import android.content.Context
 import android.os.Bundle
@@ -8,11 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.lijukay.yana.R
-import com.lijukay.yana.adapter.CollectionsAdapter
-import com.lijukay.yana.databases.Collection
-import com.lijukay.yana.databases.YANADatabase
-import com.lijukay.yana.databinding.DialogCreateBinding
+import com.lijukay.noteharmony.R
+import com.lijukay.noteharmony.adapter.CollectionsAdapter
+import com.lijukay.noteharmony.databases.Collection
+import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
+import com.lijukay.noteharmony.databinding.DialogCreateBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,12 +55,12 @@ class CreateCollectionDialog(
             val collection = Collection(collectionName = tONString, collectionDescription = contentString)
             val collectionListSize = adapter.itemCount
             lifecycleScope.launch(Dispatchers.IO) {
-                val yanaDatabase = Room.databaseBuilder(
+                val noteHarmonyDatabase = Room.databaseBuilder(
                     context = context.applicationContext,
-                    klass = YANADatabase::class.java,
-                    name = "yana_database"
+                    klass = NoteHarmonyDatabase::class.java,
+                    name = "note_harmony_database"
                 ).build()
-                val collectionDao = yanaDatabase.collectionDao()
+                val collectionDao = noteHarmonyDatabase.collectionDao()
                 val result = collectionDao.insertCollection(collection = collection)
                 if (result != -1L) {
                     adapter.addCollection(collection = collection)
