@@ -13,11 +13,14 @@
         android:theme="@style/Theme.YANA"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.NotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
