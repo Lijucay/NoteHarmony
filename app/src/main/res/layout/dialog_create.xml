@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:id="@+id/content_edit_text"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:importantForAutofill="no" />
 
         </androidx.core.widget.NestedScrollView>
