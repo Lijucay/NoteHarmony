@@ -19,8 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/notes"
-            app:titleCentered="true"
-            app:subtitleCentered="true"
             />
     </com.google.android.material.appbar.AppBarLayout>
 

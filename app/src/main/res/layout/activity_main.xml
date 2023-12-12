@@ -19,8 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
-            app:titleCentered="true"
-            app:subtitleCentered="true"
             app:subtitle="@string/collections"
             />
     </com.google.android.material.appbar.AppBarLayout>
@@ -33,6 +31,15 @@
         android:paddingBottom="100dp"
         android:clipToPadding="false"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/no_collections_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_collections_found"
+        android:textAppearance="?attr/textAppearanceTitleLarge"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
