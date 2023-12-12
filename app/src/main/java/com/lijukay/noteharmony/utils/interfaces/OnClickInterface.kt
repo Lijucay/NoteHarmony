@@ -1,4 +1,4 @@
-package com.lijukay.noteharmony.interfaces
+package com.lijukay.noteharmony.utils.interfaces
 
 interface OnClickInterface {
     fun onClick(position: Int)

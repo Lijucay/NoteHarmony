@@ -20,7 +20,7 @@ import com.lijukay.noteharmony.databases.NoteDao
 import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
 import com.lijukay.noteharmony.databinding.ActivityNotesBinding
 import com.lijukay.noteharmony.dialogs.CreateNoteDialog
-import com.lijukay.noteharmony.interfaces.OnClickInterface
+import com.lijukay.noteharmony.utils.interfaces.OnClickInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
