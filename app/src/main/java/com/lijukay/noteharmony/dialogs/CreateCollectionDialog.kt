@@ -9,6 +9,7 @@ import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lijukay.noteharmony.R
+import com.lijukay.noteharmony.activity.MainActivity
 import com.lijukay.noteharmony.adapter.CollectionsAdapter
 import com.lijukay.noteharmony.databases.Collection
 import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
@@ -60,12 +61,15 @@ class CreateCollectionDialog(
                     klass = NoteHarmonyDatabase::class.java,
                     name = "note_harmony_database"
                 ).build()
+
                 val collectionDao = noteHarmonyDatabase.collectionDao()
                 val result = collectionDao.insertCollection(collection = collection)
+
                 if (result != -1L) {
                     adapter.addCollection(collection = collection)
                     withContext(context = Dispatchers.Main) {
                         adapter.notifyItemInserted(collectionListSize)
+                        (context as? MainActivity)?.toggleVisibility(adapter.itemCount)
                         dismiss()
                     }
                 } else {
