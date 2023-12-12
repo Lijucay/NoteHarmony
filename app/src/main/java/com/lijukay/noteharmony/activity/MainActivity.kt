@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,12 +19,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.lijukay.noteharmony.R
 import com.lijukay.noteharmony.adapter.CollectionsAdapter
 import com.lijukay.noteharmony.adapter.NotesAdapter
-import com.lijukay.noteharmony.databinding.ActivityMainBinding
-import com.lijukay.noteharmony.databinding.DialogHiddenNotesBinding
 import com.lijukay.noteharmony.databases.Collection
 import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
+import com.lijukay.noteharmony.databinding.ActivityMainBinding
+import com.lijukay.noteharmony.databinding.DialogHiddenNotesBinding
 import com.lijukay.noteharmony.dialogs.CreateCollectionDialog
-import com.lijukay.noteharmony.interfaces.OnClickInterface
+import com.lijukay.noteharmony.utils.interfaces.OnClickInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +33,9 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
     private lateinit var binding: ActivityMainBinding
     private lateinit var collections: MutableList<Collection>
     private lateinit var collectionsAdapter: CollectionsAdapter
+    private lateinit var collectionsRecyclerView: RecyclerView
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -78,9 +81,11 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
     }
 
     private fun setupUI() {
-        val notesCollectionRecyclerView = binding.noteCollectionRecyclerView
-        notesCollectionRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        notesCollectionRecyclerView.adapter = collectionsAdapter
+        collectionsRecyclerView = binding.noteCollectionRecyclerView
+        collectionsRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        collectionsRecyclerView.adapter = collectionsAdapter
+
+        toggleVisibility(collectionsAdapter.itemCount)
 
         val addFAB = binding.addCollectionButton
         addFAB.setOnClickListener {
@@ -156,7 +161,7 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
                     collections.clear()
                     withContext(Dispatchers.Main) {
                         collectionsAdapter.notifyDataSetChanged()
-                        //toggleVisibility(collectionsAdapter.itemCount)
+                        toggleVisibility(collectionsAdapter.itemCount)
 
                     }
                 }
@@ -166,6 +171,18 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
             }
             .setIcon(R.drawable.delete_24px)
             .show()
+    }
+
+    fun toggleVisibility(itemCount: Int) {
+        val noCollectionsInfoTextView = binding.noCollectionsInfo
+
+        if (itemCount != 0) {
+            noCollectionsInfoTextView.visibility = View.GONE
+            collectionsRecyclerView.visibility = View.VISIBLE
+        } else {
+            noCollectionsInfoTextView.visibility = View.VISIBLE
+            collectionsRecyclerView.visibility = View.GONE
+        }
     }
 
     override fun onClick(position: Int) {

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lijukay.noteharmony.databases.Collection
 import com.lijukay.noteharmony.databinding.ItemViewBinding
-import com.lijukay.noteharmony.interfaces.OnClickInterface
+import com.lijukay.noteharmony.utils.interfaces.OnClickInterface
 
 /**
  * This class represents an adapter for the collection recyclerview
