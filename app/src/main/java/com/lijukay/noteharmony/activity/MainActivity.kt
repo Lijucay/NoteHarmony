@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
     private lateinit var collectionsAdapter: CollectionsAdapter
     private lateinit var collectionsRecyclerView: RecyclerView
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -111,7 +110,10 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
             val hiddenNotes = noteDao.getHiddenNotes()
 
             withContext(context = Dispatchers.Main) {
-                val adapter = NotesAdapter(notesList = hiddenNotes)
+                val adapter = NotesAdapter(
+                    notesList = hiddenNotes,
+                    null
+                )
                 hiddenNotesRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 hiddenNotesRecyclerView.adapter = adapter
 
@@ -169,7 +171,7 @@ class MainActivity : AppCompatActivity(), OnClickInterface {
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setIcon(R.drawable.delete_24px)
+            .setIcon(R.drawable.round_delete_24)
             .show()
     }
 

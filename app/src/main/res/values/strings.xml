@@ -32,4 +32,7 @@
     <string name="confirm_deletion_title">Are you sure?</string>
     <string name="confirm_deletion_message">Do you really want to delete %1$s? You can\'t restore it, once you deleted it.</string>
     <string name="no_collections_found">No collections found</string>
+    <string name="update">Update</string>
+    <string name="folders">Folders</string>
+    <string name="all">Show all notes</string>
 </resources>

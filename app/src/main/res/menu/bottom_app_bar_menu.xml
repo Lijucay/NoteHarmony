@@ -5,12 +5,18 @@
     <item
         android:title="@string/delete"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/delete_24px"
+        android:icon="@drawable/round_delete_24"
         android:id="@+id/delete_menu_icon"/>
 
     <item
         android:title="@string/hidden"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/visibility_off_24px"
+        android:icon="@drawable/round_visibility_off_24"
         android:id="@+id/invisible_menu_item"/>
+
+    <item
+        android:title="@string/folders"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/round_folder_24"
+        android:id="@+id/folder_menu_item"/>
 </menu>

@@ -2,8 +2,12 @@ package com.lijukay.noteharmony.dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -14,6 +18,7 @@ import com.lijukay.noteharmony.adapter.NotesAdapter
 import com.lijukay.noteharmony.databases.Note
 import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
 import com.lijukay.noteharmony.databinding.DialogCreateBinding
+import io.noties.markwon.Markwon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +27,9 @@ import java.util.Calendar
 class CreateNoteDialog(
     private val context: Context,
     private val notesAdapter: NotesAdapter,
-    private val collectionName: String
+    private val collectionName: String,
+    private val noteTitle: String?,
+    private val noteContent: String?
 ): BottomSheetDialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +42,11 @@ class CreateNoteDialog(
         val cancelButton = binding.cancelButton
         val tONEditText = binding.tonEditText
         val contentEditText = binding.contentEditText
+
+        if (noteTitle != null && noteContent != null) {
+            tONEditText.text = Editable.Factory.getInstance().newEditable(noteTitle)
+            contentEditText.text = Editable.Factory.getInstance().newEditable(noteContent)
+        }
 
         titleTextView.text = context.getString(R.string.new_note)
         tONEditText.hint = context.getString(R.string.note_title)

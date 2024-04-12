@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -20,6 +21,7 @@ import com.lijukay.noteharmony.databases.NoteDao
 import com.lijukay.noteharmony.databases.NoteHarmonyDatabase
 import com.lijukay.noteharmony.databinding.ActivityNotesBinding
 import com.lijukay.noteharmony.dialogs.CreateNoteDialog
+import com.lijukay.noteharmony.dialogs.ShowNoteDialog
 import com.lijukay.noteharmony.utils.interfaces.OnClickInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -69,7 +71,7 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
             ).build()
             noteDao = noteHarmonyDatabase.noteDao()
             notes = noteDao.getNotes(collectionName)
-            notesAdapter = NotesAdapter(notes)
+            notesAdapter = NotesAdapter(notes, this@NotesActivity)
 
             withContext(context = Dispatchers.Main) {
                 setupUI()
@@ -102,13 +104,13 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
             .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setIcon(R.drawable.delete_24px)
+            .setIcon(R.drawable.round_delete_24)
             .show()
     }
 
     private fun setupUI() {
         val notesRecyclerView = binding.noteRecyclerView
-        notesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        notesRecyclerView.layoutManager = LinearLayoutManager(this)
         notesRecyclerView.adapter = notesAdapter
 
         toggleVisibility(notesAdapter.itemCount)
@@ -118,7 +120,9 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
             CreateNoteDialog(
                 context = this@NotesActivity,
                 notesAdapter = notesAdapter,
-                collectionName = collectionName
+                collectionName = collectionName,
+                null,
+                null
             ).show()
         }
     }
@@ -152,6 +156,10 @@ class NotesActivity : AppCompatActivity(), OnClickInterface {
     }
 
     override fun onClick(position: Int) {
-        Toast.makeText(this@NotesActivity, "Clicked at $position", Toast.LENGTH_SHORT).show()
+        ShowNoteDialog(
+            this,
+            notes[position].noteName,
+            notes[position].noteContent
+        ).show()
     }
 }
